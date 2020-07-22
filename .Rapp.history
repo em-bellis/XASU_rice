@@ -1,0 +1,636 @@
+yld.5 <- aggregate(yld, 100) # 5 x 5 m resolution
+crop_extent <- readOGR(paste(path_to, "04-11-2019/Carr_N_Without_Ditch.shp", sep="/"))
+yld.5d <- crop(yld.5, crop_extent)
+yld.5dm <- mask(yld.5d, crop_extent) # 5616 cells; 5235 of these are non-NA
+yld.5dm
+yld.5d
+yld.5dm
+plot(yld.5d)
+plot(yld.5dm)
+618159.6-617769.6
+390/2
+618159.6+195
+e.train <- c(618354.6,618159.6, 3828596, 3828956)
+crop(yld.5dm, e.train)
+extent(yld.5dm, e.train)
+e.train <- extent(c(618354.6,618159.6, 3828596, 3828956))
+618159.6-195
+e.train <- (c(617964.6,618159.6, 3828596, 3828956))
+extent(yld.5dm, e.train)
+crop(yld.5dm, e.train)
+e.train <- (c(617964.6,618159.6, 3828596, 3828956))
+crop(yld.5dm, e.train)
+yld.train <- crop(yld.5dm, e.train)
+plot(yld.train)
+yld.5dm
+3828956-3828596
+360/2
+3828596+180
+e.val <- (c(617769.6,617964.6,3828596, 3828776))
+e.test <- (c(617769.6,617964.6,3828776, 3828956))
+e.val <- (c(617769.6,617964.6,3828596, 3828776))#
+yld.val <- crop(yld.5dm, e.val)
+e.test <- (c(617769.6,617964.6,3828776, 3828956))
+yld.test <- crop(yld.5dm, e.test)
+plot(yld.test)
+plot(yld.val)
+plot(yld.train)
+plot(yld.val)
+plot(yld.test)
+as.matrix(yld.test)
+dim(as.matrix(yld.test))
+as.matrix(yld.test)
+yld.test.m <- as.matrix(yld.test)
+yld.test.m[1:3,1:3]
+mean(yld.test.m[1:3,1:3])
+mean(yld.test.m[14:16,1:3])
+yld.test.m[14:16,1:3]
+mean(yld.test.m[14:16,1:3])
+mean(yld.test.m[15:17,1:3])
+mean(yld.test.m[16:18,1:3])
+yld.test.m[16:18,1:3]
+yld.test.m
+yld.test.m[1:3,16:18]
+mean(yld.test.m[1:3,16:18])
+dim(yld.test.m)
+dim(yld.test.m)[1]
+dim(yld.test.m)[2]
+for c in 1:dim(yld.test.m)[2]){#
+	print(c)#
+}
+for i in 1:dim(yld.test.m)[2]){#
+	print(i)#
+}
+for i in 1:dim(yld.test.m)[2]{#
+	print(i)#
+}
+for (i in 1:dim(yld.test.m)[2]){#
+	print(i)#
+}
+for (c in 1:dim(yld.test.m)[2]){#
+	print(c)#
+}
+yld.test.m[1:3,16:18]
+for (c in 1:dim(yld.test.m)[2]){#
+	avg <- mean(yld.test.m[1:3,i:i+2])#
+	print(avg)#
+}
+for (c in 1:(dim(yld.test.m)[2]-2){#
+	avg <- mean(yld.test.m[1:3,i:i+2])#
+	print(avg)#
+}
+for (c in 1:(dim(yld.test.m)[2]-2)){#
+	avg <- mean(yld.test.m[1:3,c:c+2])#
+	print(avg)#
+}
+for (c in 1:(dim(yld.test.m)[2]-2)){#
+	avg <- mean(yld.test.m[1:3,c:c+2])#
+	print(c, avg)#
+}
+for (c in 1:(dim(yld.test.m)[2]-2)){#
+	avg <- mean(yld.test.m[1:3,c:c+2])#
+	print(paste(c, avg))#
+}
+for (r in 1:(dim(yld.test.m)[1]-2)) {#
+	for (c in 1:(dim(yld.test.m)[2]-2)){#
+		avg <- mean(yld.test.m[r:r+2,c:c+2])#
+		print(avg)#
+	}#
+}
+tmp <- for (r in 1:(dim(yld.test.m)[1]-2)) {#
+	for (c in 1:(dim(yld.test.m)[2]-2)){#
+		avg <- mean(yld.test.m[r:r+2,c:c+2])#
+		print(avg)#
+	}#
+}
+tmp
+name
+for (r in 1:(dim(yld.test.m)[1]-2)) {#
+	for (c in 1:(dim(yld.test.m)[2]-2)){#
+		avg <- mean(yld.test.m[r:r+2,c:c+2])#
+		id <- paste("yld",r,".csv", sep="")#
+		print(id)#
+	}#
+}
+i <- 1#
+for (r in 1:(dim(yld.test.m)[1]-2)) {#
+	for (c in 1:(dim(yld.test.m)[2]-2)){#
+		avg <- mean(yld.test.m[r:r+2,c:c+2])#
+		id <- paste("yld",i,".csv", sep="")#
+		print(id)#
+		i <- i+1#
+	}#
+}
+path_to <- "/Volumes/Extreme SSD/Data/Humnoke/Carr_North/infiles_for_2DCNN/"
+i <- 1#
+for (r in 1:(dim(yld.test.m)[1]-2)) {#
+	for (c in 1:(dim(yld.test.m)[2]-2)){#
+		avg <- mean(yld.test.m[r:r+2,c:c+2])#
+		file_id <- paste("yld",i,".csv", sep="")#
+		write.table(yld.flt, file=paste(path_to,file_id,sep=""), quote=F, sep=",", row.names=F)#
+		i <- i+1#
+	}#
+}
+i <- 1#
+for (r in 1:(dim(yld.test.m)[1]-2)) {#
+	for (c in 1:(dim(yld.test.m)[2]-2)){#
+		avg <- mean(yld.test.m[r:r+2,c:c+2])#
+		file_id <- paste("yld",i,".csv", sep="")#
+		write.table(avg, file=paste(path_to,"labels/",file_id,sep=""), quote=F, sep=",", row.names=F)#
+		i <- i+1#
+	}#
+}
+is.na("NA")
+i <- 1#
+for (r in 1:(dim(yld.test.m)[1]-2)) {#
+	for (c in 1:(dim(yld.test.m)[2]-2)){#
+		avg <- mean(yld.test.m[r:r+2,c:c+2])#
+		file_id <- paste("yld",i,".csv", sep="")#
+		if (is.na(avg) == "TRUE") {#
+			write.table(avg, file=paste(path_to,"labels/",file_id,sep=""), quote=F, sep=",", row.names=F)#
+		}#
+		i <- i+1#
+	}#
+}
+avg
+is.na(avg)
+mean(yld.test.m[1:3,1:3])
+avg <- mean(yld.test.m[1:3,1:3])
+is.na(avg)
+i <- 1#
+for (r in 1:(dim(yld.test.m)[1]-2)) {#
+	for (c in 1:(dim(yld.test.m)[2]-2)){#
+		avg <- mean(yld.test.m[r:r+2,c:c+2])#
+		file_id <- paste("yld",i,".csv", sep="")#
+		if (is.na(avg) == "FALSE") {#
+			write.table(avg, file=paste(path_to,"labels/",file_id,sep=""), quote=F, sep=",", row.names=F)#
+		}#
+		i <- i+1#
+	}#
+}
+?round
+round(avg)
+round(avg, digits=)
+round(avg, digits=2)
+round(avg, digits=1)
+i <- 1#
+for (r in 1:(dim(yld.test.m)[1]-2)) {#
+	for (c in 1:(dim(yld.test.m)[2]-2)){#
+		avg <- round(mean(yld.test.m[r:r+2,c:c+2]), digits=1)#
+		file_id <- paste("yld",i,".csv", sep="")#
+		if (is.na(avg) == "FALSE") {#
+			write.table(avg, file=paste(path_to,"labels/",file_id,sep=""), quote=F, sep=",", row.names=F)#
+		}#
+		i <- i+1#
+	}#
+}
+e.train <- (c(617964.6,618159.6, 3828596, 3828956))#
+train <- crop(yld.5dm, e.train)#
+#
+e.val <- (c(617769.6,617964.6,3828596, 3828776))#
+val <- crop(yld.5dm, e.val)#
+#
+e.test <- (c(617769.6,617964.6,3828776, 3828956))#
+test <- crop(yld.5dm, e.test)
+e.train <- (c(617964.6,618159.6, 3828596, 3828956))#
+train <- crop(yld.5dm, e.train)#
+#
+e.val <- (c(617769.6,617964.6,3828596, 3828776))#
+val <- crop(yld.5dm, e.val)#
+#
+e.test <- (c(617769.6,617964.6,3828776, 3828956))#
+test <- crop(yld.5dm, e.test)
+test
+sets <- stack(test, train, val)
+?assign
+sets <- c(test, train, val)
+sets
+sets[[1]]
+sets[[1]]$names
+sets[[1]]$name
+name(sets)
+names(sets)
+names(sets[[1]])
+names(sets)
+names(sets) <- c("train","test","val")
+sets
+names(sets)[[1]]
+sets <- c(test, train, val)
+names(sets) <- c("test","train","val")
+sets[[1]]
+sets[[2]]
+sets[[3]]
+m=1
+names(sets)[[m]]
+paste(path_to,"labels/",names(sets)[[m]],"/",file_id,sep="")
+e.train <- (c(617964.6,618159.6, 3828596, 3828956))#
+train <- crop(yld.5dm, e.train)#
+#
+e.val <- (c(617769.6,617964.6,3828596, 3828776))#
+val <- crop(yld.5dm, e.val)#
+#
+e.test <- (c(617769.6,617964.6,3828776, 3828956))
+test <- crop(yld.5dm, e.test)
+sets <- c(test, train, val)#
+names(sets) <- c("test","train","val")#
+#
+for (m in 1:3) {#
+	mat <- as.matrix(sets[[m]])#
+#
+	i <- 1#
+	for (r in 1:(dim(yld.test.m)[1]-2)) {#
+		for (c in 1:(dim(yld.test.m)[2]-2)){#
+			avg <- round(mean(yld.test.m[r:r+2,c:c+2]), digits=1)#
+			file_id <- paste("yld",i,".csv", sep="")#
+			if (is.na(avg) == "FALSE") {#
+				write.table(avg, file=paste(path_to,"labels/",names(sets)[[m]],"/",file_id,sep=""), quote=F, sep=",", row.names=F)#
+			}#
+			i <- i+1#
+		}#
+	}#
+}
+sets <- c(test, train, val)#
+names(sets) <- c("test","train","val")#
+#
+for (m in 1:3) {#
+	mat <- as.matrix(sets[[m]])#
+#
+	i <- 1#
+	for (r in 1:(dim(mat)[1]-2)) {#
+		for (c in 1:(dim(mat)[2]-2)){#
+			avg <- round(mean(mat[r:r+2,c:c+2]), digits=1)#
+			file_id <- paste("yld",i,".csv", sep="")#
+			if (is.na(avg) == "FALSE") {#
+				write.table(avg, file=paste(path_to,"labels/",names(sets)[[m]],"/",file_id,sep=""), quote=F, sep=",", row.names=F)#
+			}#
+			i <- i+1#
+		}#
+	}#
+}
+flydays <- c("04-11-2019","05-21-2019","06-13-2019","06-29-2019","07-11-2019","08-01-2019", "08-13-2019", "08-21-2019","08-28-2019","09-07-2019","09-13-2019") #
+channels <- c("CIgreen.tif","GNDVI.tif","NAVI.tif","NDVI.tif","RENDVI.tif","TGI.tif","Thermal.tif")
+j <- 1
+for (i in 1:length(channels)) {#
+    curr <- raster(paste(path_to,flydays[j],channels[i], sep = "/"))#
+    curr.rp <- projectRaster(curr, yld.5dm)#
+    curr.rpm <- mask(curr.rp, yld.5dm)#
+    # something going on w/Thermal on 6-13-19, seems to be relative to Kelvin?#
+    if (maxValue(curr.rpm) < (-200) && i==7) {#
+      warning(paste('Adding 300 to thermal for ', flydays[j]))#
+      curr.rpm <- curr.rpm + 300 # something going on w/Thermal on 6-13 seem to be relative to Kelvin?#
+    }#
+    if(i == 1){#
+      daystack <- curr.rpm#
+    } else {#
+      daystack <- stack(daystack, curr.rpm)#
+    }#
+  }#
+#
+  plot(daystack)#
+  # check NAs#
+  rNA <- sum(!is.na(daystack))#
+  #plot(rNA, main=paste("NAs on ", flydays[j]))#
+  print(flydays[j])#
+  print(freq(rNA))#
+#
+  # create and save dataframe #
+  tmp <-as.data.frame(daystack)#
+  tmp2 <- tmp[goodrows,]#
+  if(nrow(tmp2) != warnval)stop('Wrong number of pixels in dataframe!')#
+  nam <- paste(path_to,"/", "layers",str_remove_all(flydays[j], "-"),".csv",sep="")
+i <- 1
+curr <- raster(paste(path_to,flydays[j],channels[i], sep = "/"))
+path_to <- "/Volumes/Extreme SSD/Data/Humnoke/Carr_North/"
+curr <- raster(paste(path_to,flydays[j],channels[i], sep = "/"))
+curr
+for (i in 1:length(channels)) {#
+    curr <- raster(paste(path_to,flydays[j],channels[i], sep = "/"))#
+    curr.rp <- projectRaster(curr, yld.5dm)#
+    curr.rpm <- mask(curr.rp, yld.5dm)#
+    # something going on w/Thermal on 6-13-19, seems to be relative to Kelvin?#
+    if (maxValue(curr.rpm) < (-200) && i==7) {#
+      warning(paste('Adding 300 to thermal for ', flydays[j]))#
+      curr.rpm <- curr.rpm + 300 # something going on w/Thermal on 6-13 seem to be relative to Kelvin?#
+    }#
+    if(i == 1){#
+      daystack <- curr.rpm#
+    } else {#
+      daystack <- stack(daystack, curr.rpm)#
+    }#
+  }#
+#
+  plot(daystack)#
+  # check NAs#
+  rNA <- sum(!is.na(daystack))#
+  #plot(rNA, main=paste("NAs on ", flydays[j]))#
+  print(flydays[j])#
+  print(freq(rNA))#
+#
+  # create and save dataframe #
+  tmp <-as.data.frame(daystack)#
+  tmp2 <- tmp[goodrows,]#
+  if(nrow(tmp2) != warnval)stop('Wrong number of pixels in dataframe!')#
+  nam <- paste(path_to,"/", "layers",str_remove_all(flydays[j], "-"),".csv",sep="") #r seems to have some issues with variable names that have a '-'; remove with str_remove_all function  #
+  #write.table(tmp2, file=nam, quote=F, sep=",", row.names=F)#
+}
+tmp
+plot(daystack)
+daystack
+daystack[[1]]
+as.matrix(daystack[[1]])
+train <- crop(daystack, e.train)
+plot(yld.5d)
+sets <- c(test, train, val)
+sets
+train <- crop(daystack, e.train)#
+  val <- crop(daystack, e.val)#
+  test <- crop(daystack, e.test)
+sets <- c(test, train, val)
+sets
+names(sets) <- c("test","train","val")
+sets
+sets$val[[1]]
+sets$val[[2]]
+sets[[1]]
+sets[[1]][[1]]
+i <- 1
+m <- 1
+mat <- as.matrix(sets[[m]][[i]]) # i iterating over channels
+mat
+r = 16
+r <- 1
+r
+c <- 16
+mat[r:r+2,c:c+2])
+mat[r:r+2,c:c+2]
+c
+mat[1:3,16:18]
+mat[c:3,16:18]
+mat[r:3,16:18]
+mat[r:r+2,16:18]
+mat[r:(r+2),16:18]
+avg <- round(mean(mat[r:(r+2),c:(c+2)]), digits=1)
+avg
+avg <- round(mean(mat[r:(r+2),c:(c+2)]), digits=3)
+avg
+avg <- round(mean(mat[r:r+2,c:c+2]), digits=3)
+avg
+yld <- raster('/Volumes/Extreme SSD/Data/Yield.tif') # utm, 5 cm resolution#
+yld.5 <- aggregate(yld, 100) # 5 x 5 m resolution#
+crop_extent <- readOGR(paste(path_to, "04-11-2019/Carr_N_Without_Ditch.shp", sep="/"))#
+yld.5d <- crop(yld.5, crop_extent)#
+yld.5dm <- mask(yld.5d, crop_extent) # 5616 cells; 5235 of these are non-NA#
+#
+## divide into training, testing and validation sets  #
+e.train <- (c(617964.6,618159.6, 3828596, 3828956))#
+train <- crop(yld.5dm, e.train)#
+#
+e.val <- (c(617769.6,617964.6,3828596, 3828776))#
+val <- crop(yld.5dm, e.val)#
+#
+e.test <- (c(617769.6,617964.6,3828776, 3828956))#
+test <- crop(yld.5dm, e.test)#
+#
+## scan yield image and create subsets of 3x3 pixels. For each of these, output a label that is the average of all 9 cells#
+sets <- c(test, train, val)#
+names(sets) <- c("test","train","val")
+avg <- round(mean(mat[r:(r+2),c:(c+2)]), digits=1)
+avg
+train
+test
+r <- 1
+c <- 16
+avg <- round(mean(mat[r:(r+2),c:(c+2)]), digits=1)
+avg
+m <- 1
+mat <- as.matrix(sets[[m]])
+avg <- round(mean(mat[r:(r+2),c:(c+2)]), digits=1)
+avg
+avg <- round(mean(mat[r:r+2,c:c+2]), digits=1)
+avg
+path_to <- "/Volumes/Extreme SSD/Data/Humnoke/Carr_North/infiles_for_2DCNN/"#
+#
+## get yield data layer, downsample, mask; base all other layers on this layer#
+yld <- raster('/Volumes/Extreme SSD/Data/Yield.tif') # utm, 5 cm resolution#
+yld.5 <- aggregate(yld, 100) # 5 x 5 m resolution#
+crop_extent <- readOGR(paste(path_to, "04-11-2019/Carr_N_Without_Ditch.shp", sep="/"))#
+yld.5d <- crop(yld.5, crop_extent)#
+yld.5dm <- mask(yld.5d, crop_extent) # 5616 cells; 5235 of these are non-NA#
+#
+## divide into training, testing and validation sets  #
+e.train <- (c(617964.6,618159.6, 3828596, 3828956))#
+train <- crop(yld.5dm, e.train)#
+#
+e.val <- (c(617769.6,617964.6,3828596, 3828776))#
+val <- crop(yld.5dm, e.val)#
+#
+e.test <- (c(617769.6,617964.6,3828776, 3828956))#
+test <- crop(yld.5dm, e.test)#
+#
+## scan yield image and create subsets of 3x3 pixels. For each of these, output a label that is the average of all 9 cells#
+sets <- c(test, train, val)#
+names(sets) <- c("test","train","val")#
+#
+for (m in 1:3) {#
+	mat <- as.matrix(sets[[m]])#
+#
+	i <- 1#
+	for (r in 1:(dim(mat)[1]-2)) {#
+		for (c in 1:(dim(mat)[2]-2)){#
+			avg <- round(mean(mat[r:(r+2),c:(c+2)]), digits=1)#
+			file_id <- paste("yld",i,".csv", sep="")#
+			if (is.na(avg) == "FALSE") {#
+				write.table(avg, file=paste(path_to,"labels/",names(sets)[[m]],"/",file_id,sep=""), quote=F, sep=",", row.names=F)#
+			}#
+			i <- i+1#
+		}#
+	}#
+}
+flydays <- c("04-11-2019","05-21-2019","06-13-2019","06-29-2019","07-11-2019","08-01-2019", "08-13-2019", "08-21-2019","08-28-2019","09-07-2019","09-13-2019") #
+channels <- c("CIgreen.tif","GNDVI.tif","NAVI.tif","NDVI.tif","RENDVI.tif","TGI.tif","Thermal.tif")#
+path_to <- "/Volumes/Extreme SSD/Data/Humnoke/Carr_North/"
+j <- 1
+m <- 1
+dim(mat)[1]-2
+for (i in 1:length(channels)) {#
+    curr <- raster(paste(path_to,flydays[j],channels[i], sep = "/"))#
+    curr.rp <- projectRaster(curr, yld.5dm)#
+    curr.rpm <- mask(curr.rp, yld.5dm)#
+    # something going on w/Thermal on 6-13-19, seems to be relative to Kelvin?#
+    if (maxValue(curr.rpm) < (-200) && i==7) {#
+      warning(paste('Adding 300 to thermal for ', flydays[j]))#
+      curr.rpm <- curr.rpm + 300 # something going on w/Thermal on 6-13 seem to be relative to Kelvin?#
+    }#
+    if(i == 1){#
+      daystack <- curr.rpm#
+    } else {#
+      daystack <- stack(daystack, curr.rpm)#
+    }#
+  }
+mat
+c
+c <- 1
+r <- 1
+mat[r:(r+2),c:(c+2)]
+mean(mat[r:(r+2),c:(c+2)])
+names(sets)
+names(sets)[[1]]
+names(sets)[[1]][[1]]
+sets <- c(test, train, val)
+names(sets)
+names(sets)[[1]][[1]]
+names(sets) <- c("test","train","val")
+sets
+j <- 1
+for (i in 1:length(channels)) {#
+    curr <- raster(paste(path_to,flydays[j],channels[i], sep = "/"))#
+    curr.rp <- projectRaster(curr, yld.5dm)#
+    curr.rpm <- mask(curr.rp, yld.5dm)#
+    # something going on w/Thermal on 6-13-19, seems to be relative to Kelvin?#
+    if (maxValue(curr.rpm) < (-200) && i==7) {#
+      warning(paste('Adding 300 to thermal for ', flydays[j]))#
+      curr.rpm <- curr.rpm + 300 # something going on w/Thermal on 6-13 seem to be relative to Kelvin?#
+    }#
+    if(i == 1){#
+      daystack <- curr.rpm#
+    } else {#
+      daystack <- stack(daystack, curr.rpm)#
+    }#
+  }
+daystack
+train <- crop(daystack, e.train)#
+  val <- crop(daystack, e.val)#
+  test <- crop(daystack, e.test)#
+  sets <- c(test, train, val)#
+  names(sets) <- c("test","train","val")
+names(sets)[[1]][[1]]
+names(sets)[[1]]
+sets <- c(test, train, val)
+names(sets)
+sets
+sets[[1]][[2]]
+names(sets[[1]][[2]])
+names(sets) <- c("test","train","val")
+names(sets[[1]][[2]])
+mat[r:(r+2),c:(c+2)]
+subimg <- mat[r:(r+2),c:(c+2)]
+subimg
+mean(subimg)
+names(sets)[[m]]
+for (m in 1:3) { #m iterating over datasets#
+    mat <- as.matrix(sets[[m]][[i]]) # i iterating over channels#
+#
+	k <- 1 #k is a unique id for each 'image'#
+	for (r in 1:(dim(mat)[1]-2)) {#
+		for (c in 1:(dim(mat)[2]-2)){#
+			subimg <- mat[r:(r+2),c:(c+2)]#
+			file_id <- paste(names(sets[[m]][[i]]),k,".csv", sep="")#
+			if (is.na(mean(subimg)) == "FALSE") {#
+				write.table(subimg, file=paste(path_to,"images/",flydays[j],"/",names(sets)[[m]],"/",file_id,sep=""), quote=F, sep=",", row.names=F)#
+			}#
+			k <- k+1#
+		}#
+	}
+}
+file.path
+dir.create
+?dir.create
+dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m], sep="")
+dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m], sep=""))
+dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m], sep=""))
+dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m]], sep=""))
+dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m]], sep=""), recursive=T)
+dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m]], sep=""), recursive=T)
+path_to
+path_to <- "/Volumes/Extreme SSD/Data/Humnoke/Carr_North/infiles_for_2DCNN/"
+path_to_raster <- "/Volumes/Extreme SSD/Data/Humnoke/Carr_North/"
+dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m]], sep=""), recursive=T)
+k <- 1 #k is a unique id for each 'image'#
+	for (r in 1:(dim(mat)[1]-2)) {#
+		for (c in 1:(dim(mat)[2]-2)){#
+			subimg <- mat[r:(r+2),c:(c+2)]#
+			file_id <- paste(names(sets[[m]][[i]]),k,".csv", sep="")#
+			if (is.na(mean(subimg)) == "FALSE") {#
+				write.table(subimg, file=paste(path_to,"images/",flydays[j],"/",names(sets)[[m]],"/",file_id,sep=""), quote=F, sep=",", row.names=F)#
+			}#
+			k <- k+1#
+		}#
+	}
+i
+mat
+length(channels)
+yld.5dm
+e.train <- (c(617964.6,618159.6, 3828596, 3828956))#
+train <- crop(yld.5dm, e.train)#
+#
+e.val <- (c(617769.6,617964.6,3828596, 3828776))#
+val <- crop(yld.5dm, e.val)#
+#
+e.test <- (c(617769.6,617964.6,3828776, 3828956))#
+test <- crop(yld.5dm, e.test)
+test
+train
+val
+sets <- c(test, train, val)#
+names(sets) <- c("test","train","val")
+for (m in 1:3) {#
+	mat <- as.matrix(sets[[m]])#
+#
+	i <- 1#
+	for (r in 1:(dim(mat)[1]-2)) {#
+		for (c in 1:(dim(mat)[2]-2)){#
+			avg <- round(mean(mat[r:(r+2),c:(c+2)]), digits=1)#
+			file_id <- paste("yld",i,".csv", sep="")#
+			if (is.na(avg) == "FALSE") {#
+				write.table(avg, file=paste(path_to,"labels/",names(sets)[[m]],"/",file_id,sep=""), quote=F, sep=",", row.names=F)#
+			}#
+			i <- i+1#
+		}#
+	}#
+}
+flydays <- c("04-11-2019","05-21-2019","06-13-2019","06-29-2019","07-11-2019","08-01-2019", "08-13-2019", "08-21-2019","08-28-2019","09-07-2019","09-13-2019") #
+channels <- c("CIgreen.tif","GNDVI.tif","NAVI.tif","NDVI.tif","RENDVI.tif","TGI.tif","Thermal.tif")#
+path_to_raster <- "/Volumes/Extreme SSD/Data/Humnoke/Carr_North/"
+for (j in 1:length(flydays)) {#
+  for (i in 1:length(channels)) { # downsample, crop, and make raster stack for each day#
+    curr <- raster(paste(path_to_raster,flydays[j],channels[i], sep = "/"))#
+    curr.rp <- projectRaster(curr, yld.5dm)#
+    curr.rpm <- mask(curr.rp, yld.5dm)#
+    # something going on w/Thermal on 6-13-19, seems to be relative to Kelvin?#
+    if (maxValue(curr.rpm) < (-200) && i==7) {#
+      warning(paste('Adding 300 to thermal for ', flydays[j]))#
+      curr.rpm <- curr.rpm + 300 # something going on w/Thermal on 6-13 seem to be relative to Kelvin?#
+    }#
+    if(i == 1){#
+      daystack <- curr.rpm#
+    } else {#
+      daystack <- stack(daystack, curr.rpm)#
+    }#
+  }#
+  plot(daystack)#
+  ## split into test, validation, training sets#
+  train <- crop(daystack, e.train)#
+  val <- crop(daystack, e.val)#
+  test <- crop(daystack, e.test)#
+  sets <- c(test, train, val)#
+  names(sets) <- c("test","train","val")#
+  ## create and save 3x3 pixel images #
+  for (m in 1:3) { #m iterating over datasets#
+  	for (i in 1:length(channels)) { #i iterating over channels#
+    	mat <- as.matrix(sets[[m]][[i]])#
+		dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m]], sep=""), recursive=T)#
+		k <- 1 #k is a unique id for each subimage#
+		for (r in 1:(dim(mat)[1]-2)) {#
+			for (c in 1:(dim(mat)[2]-2)){#
+				subimg <- mat[r:(r+2),c:(c+2)]#
+				file_id <- paste(names(sets[[m]][[i]]),k,".csv", sep="")#
+				if (is.na(mean(subimg)) == "FALSE") {#
+					write.table(subimg, file=paste(path_to,"images/",flydays[j],"/",names(sets)[[m]],"/",file_id,sep=""), quote=F, sep=",", row.names=F)#
+				}#
+				k <- k+1#
+			}#
+		}		#
+	}#
+  }#
+}
+warnings(50)
