@@ -192,14 +192,6 @@ val <- crop(yld.5dm, e.val)#
 #
 e.test <- (c(617769.6,617964.6,3828776, 3828956))#
 test <- crop(yld.5dm, e.test)
-e.train <- (c(617964.6,618159.6, 3828596, 3828956))#
-train <- crop(yld.5dm, e.train)#
-#
-e.val <- (c(617769.6,617964.6,3828596, 3828776))#
-val <- crop(yld.5dm, e.val)#
-#
-e.test <- (c(617769.6,617964.6,3828776, 3828956))#
-test <- crop(yld.5dm, e.test)
 test
 sets <- stack(test, train, val)
 ?assign
@@ -537,9 +529,7 @@ dir.create
 ?dir.create
 dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m], sep="")
 dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m], sep=""))
-dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m], sep=""))
 dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m]], sep=""))
-dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m]], sep=""), recursive=T)
 dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m]], sep=""), recursive=T)
 path_to
 path_to <- "/Volumes/Extreme SSD/Data/Humnoke/Carr_North/infiles_for_2DCNN/"
