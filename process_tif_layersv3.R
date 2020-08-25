@@ -1,3 +1,4 @@
+##### Update 8.25.20: output a folder of mean values for each date
 ##### Update 6.12.20: rework to output 3x3 images for yield instead of a single value
 ##### Update 5.27.20: rework to output 3x3 images instead of csv of individual pixels
 
@@ -31,34 +32,34 @@ val <- crop(yld.5dm, e.val)
 e.test <- (c(617769.6,617964.6,3828776, 3828956))
 test <- crop(yld.5dm, e.test)
 
-## scan yield image and create subsets of 3x3 pixels. For each of these, output a label that is the average of all 9 cells
-sets <- c(test, train, val)
-names(sets) <- c("test","train","val")
-
-for (m in 1:3) {
-	mat <- as.matrix(sets[[m]])
-
-	i <- 1
-	for (r in 1:(dim(mat)[1]-2)) {
-		for (c in 1:(dim(mat)[2]-2)){
-			avg <- round(mean(mat[r:(r+2),c:(c+2)]), digits=1)
-			file_id <- paste("yld",i,".csv", sep="")
-			subimg <- round(mat[r:(r+2),c:(c+2)],2)
-		
-			if (is.na(avg) == "FALSE") {
-				write.table(subimg, file=paste(path_to,"labels/",names(sets)[[m]],"/",file_id,sep=""), quote=F, sep=",", row.names=F)
-			}
-		
-			i <- i+1
-		}
-	}
-}
+# ## scan yield image and create subsets of 3x3 pixels. For each of these, output a label that is the average of all 9 cells
+# sets <- c(test, train, val)
+# names(sets) <- c("test","train","val")
+# 
+# for (m in 1:3) {
+# 	mat <- as.matrix(sets[[m]])
+# 
+# 	i <- 1
+# 	for (r in 1:(dim(mat)[1]-2)) {
+# 		for (c in 1:(dim(mat)[2]-2)){
+# 			avg <- round(mean(mat[r:(r+2),c:(c+2)]), digits=1)
+# 			file_id <- paste("yld",i,".csv", sep="")
+# 			subimg <- round(mat[r:(r+2),c:(c+2)],2)
+# 		
+# 			if (is.na(avg) == "FALSE") {
+# 				write.table(subimg, file=paste(path_to,"labels/",names(sets)[[m]],"/",file_id,sep=""), quote=F, sep=",", row.names=F)
+# 			}
+# 		
+# 			i <- i+1
+# 		}
+# 	}
+# }
 
 ## process all other layers (downsample, crop, mask); make raster stacks for each day; split into test, train, and validation sets; split each of these into 3x3 pixel subimages and then save each image and channel separately as .csv file 
 
 flydays <- c("04-11-2019","05-21-2019","06-13-2019","06-29-2019","07-11-2019","08-01-2019", "08-13-2019", "08-21-2019","08-28-2019","09-07-2019","09-13-2019") 
 channels <- c("CIgreen.tif","GNDVI.tif","NAVI.tif","NDVI.tif","RENDVI.tif","TGI.tif","Thermal.tif")
-path_to_raster <- "/Volumes/Extreme SSD/Data/Humnoke/Carr_North/"
+path_to_raster <- "/Volumes/ExtremeSSD/Data/Humnoke/Carr_North/"
 
 for (j in 1:length(flydays)) {
   for (i in 1:length(channels)) { # downsample, crop, and make raster stack for each day
@@ -92,16 +93,18 @@ for (j in 1:length(flydays)) {
   for (m in 1:3) { #m iterating over datasets
   	for (i in 1:length(channels)) { #i iterating over channels
     	mat <- as.matrix(sets[[m]][[i]])
-		dir.create(paste(path_to,"images/",flydays[j],"/",names(sets)[[m]], sep=""), recursive=T)
+  	  mean.val <- round(cellStats(sets[[m]][[i]], stat=mean),3)
+		  dir.create(paste(path_to,"images/",flydays[j],"_mean/",names(sets)[[m]], sep=""), recursive=T)
 	
 		k <- 1 #k is a unique id for each subimage
 		for (r in 1:(dim(mat)[1]-2)) {
 			for (c in 1:(dim(mat)[2]-2)){
-				subimg <- mat[r:(r+2),c:(c+2)]
+			  subimg <- mat[r:(r+2),c:(c+2)]
+				meanimg <- matrix(data=rep(mean.val,9), ncol=3)
 				file_id <- paste(names(sets[[m]][[i]]),k,".csv", sep="")
 		
 				if (is.na(mean(subimg)) == "FALSE") {
-					write.table(subimg, file=paste(path_to,"images/",flydays[j],"/",names(sets)[[m]],"/",file_id,sep=""), quote=F, sep=",", row.names=F)
+					write.table(meanimg, file=paste(path_to,"images/",flydays[j],"_mean/",names(sets)[[m]],"/",file_id,sep=""), quote=F, sep=",", row.names=F)
 				}
 		
 				k <- k+1
