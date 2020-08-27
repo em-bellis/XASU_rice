@@ -23,6 +23,7 @@ vals = np.zeros(len(pred_files))
 
 for i in range(0,len(pred_files)):
     vals[i] = file_mse(pred_files[i])
+    print(pred_files[i]
 
 #df = np.concatenate((pred_files, vals),axis=0).reshape(2,11)
 #np.array(df)
