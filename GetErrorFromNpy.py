@@ -18,12 +18,12 @@ def file_mse(preds_file):
 
 
 ###### plot MSE for all the blank one data
-vals = np.zeros(11)
 pred_files = glob.glob("/Volumes/ExtremeSSD/Preds/blank_one_out/*_3Db64.npy")
+vals = np.zeros(len(pred_files))
 
-for i in range(0,11):
+for i in range(0,len(pred_files)):
     vals[i] = file_mse(pred_files[i])
 
-df = np.concatenate((pred_files, vals),axis=0).reshape(2,11)
-np.array(df)
-np.savetxt('blank_one_3Db64.txt', df, fmt='%s')
+#df = np.concatenate((pred_files, vals),axis=0).reshape(2,11)
+#np.array(df)
+#np.savetxt('blank_one_3Db64.txt', df, fmt='%s')
