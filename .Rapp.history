@@ -1,18 +1,4 @@
-yld.5 <- aggregate(yld, 100) # 5 x 5 m resolution
-crop_extent <- readOGR(paste(path_to, "04-11-2019/Carr_N_Without_Ditch.shp", sep="/"))
-yld.5d <- crop(yld.5, crop_extent)
-yld.5dm <- mask(yld.5d, crop_extent) # 5616 cells; 5235 of these are non-NA
 yld.5dm
-yld.5d
-yld.5dm
-plot(yld.5d)
-plot(yld.5dm)
-618159.6-617769.6
-390/2
-618159.6+195
-e.train <- c(618354.6,618159.6, 3828596, 3828956)
-crop(yld.5dm, e.train)
-extent(yld.5dm, e.train)
 e.train <- extent(c(618354.6,618159.6, 3828596, 3828956))
 618159.6-195
 e.train <- (c(617964.6,618159.6, 3828596, 3828956))
@@ -624,3 +610,23 @@ for (j in 1:length(flydays)) {#
   }#
 }
 warnings(50)
+library(ggplot2)#
+library(dplyr)#
+library(lubridate)
+read.csv('Documents/GitHub/XASU_rice/blankone_9-13_b64.csv',header=F)
+mses <- read.csv('~/Documents/GitHub/XASU_rice/blankone_9-13_b64.csv',header=F)[,1:2]
+mses
+mses$date <- mdy(mses$V1)
+mses <- read.csv('~/Documents/GitHub/XASU_rice/blankone_9-13_b64.csv',header=F)[,1:2]
+p <- ggplot(mses, aes(x=V1, y=V2)) + geom_line() + geom_point(size=2) + theme_classic() + xlab("Masked Day") + ylab("Test Set MSE") + geom_hline(yintercept =155, lty=2)
+p
+p <- ggplot(mses, aes(x=V1, y=V2)) + geom_point(size=2) + theme_classic() + xlab("Masked Channel") + ylab("Test Set MSE") + geom_hline(yintercept =155, lty=2)
+p
+pdf('~/Desktop/Projects/rice_irrigation/ChannelVar.pdf', width=3, height=3)
+p
+dev.off()
+pdf('~/Desktop/Projects/rice_irrigation/ChannelVar.pdf', width=4, height=3)
+p
+p
+dev.off()
+sqrt(176)

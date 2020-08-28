@@ -11,3 +11,11 @@ p <- ggplot(mses, aes(x=date, y=V2)) + geom_line() + geom_point(size=2) + theme_
 pdf('~/Desktop/Projects/rice_irrigation/TemporalVar.pdf', width=3, height=3)
 p
 dev.off()
+
+# file of MSE over for 9-13, where each channel in turn is 'blanked' out with the average value
+mses <- read.csv('~/Documents/GitHub/XASU_rice/blankone_9-13_b64.csv',header=F)[,1:2]
+p <- ggplot(mses, aes(x=V1, y=V2)) + geom_point(size=2) + theme_classic() + xlab("Masked Channel") + ylab("Test Set MSE") + geom_hline(yintercept =155, lty=2)
+
+pdf('~/Desktop/Projects/rice_irrigation/ChannelVar.pdf', width=4, height=3)
+p
+dev.off()
