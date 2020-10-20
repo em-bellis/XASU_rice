@@ -58,13 +58,13 @@ for (m in 1:3) {
 
 flydays <- c("04-11-2019","05-21-2019","06-13-2019","06-29-2019","07-11-2019","08-01-2019", "08-13-2019", "08-21-2019","08-28-2019","09-07-2019","09-13-2019") 
 channels <- c("CIgreen.tif","GNDVI.tif","NAVI.tif","NDVI.tif","RENDVI.tif","TGI.tif","Thermal.tif")
-path_to_raster <- "/Volumes/Extreme SSD/Data/Humnoke/Carr_North/"
+path_to_raster <- "/Volumes/ExtremeSSD/Data/Humnoke/Carr_North/"
 
 for (j in 1:length(flydays)) {
   for (i in 1:length(channels)) { # downsample, crop, and make raster stack for each day
     curr <- raster(paste(path_to_raster,flydays[j],channels[i], sep = "/"))
-    curr.rp <- projectRaster(curr, yld.5dm)
-    curr.rpm <- mask(curr.rp, yld.5dm)
+    curr.rp <- projectRaster(curr, yld.5dm) # some of the layers are not in UTM coordinates
+    curr.rpm <- mask(curr.rp, yld.5dm) # cut out the ditches
     
     # something going on w/Thermal on 6-13-19, seems to be relative to Kelvin?
     if (maxValue(curr.rpm) < (-200) && i==7) {
@@ -78,7 +78,7 @@ for (j in 1:length(flydays)) {
       daystack <- stack(daystack, curr.rpm)
     }
   }
-  plot(daystack)
+  plot(daystack) # stack of channel data for one day
   
   ## split into test, validation, training sets
   train <- crop(daystack, e.train)

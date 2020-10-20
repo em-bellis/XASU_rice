@@ -31,7 +31,7 @@ val_generator = DataGenerator(path_to_labs, path_to_img, batch_size_val, 'val', 
 
 ###### define CNN architecture 
 model = Sequential()
-model.add(Conv3D(filters=64, kernel_size=(3,3,3), padding="same", activation='relu', input_shape=(3,3,11,7)))
+model.add(Conv3D(filters=64, kernel_size=(3,3,3), padding="same", activation='relu', input_shape=(3,3,11,7))) # 3x3 images with 11 timepoints and 7 channels (veg. indices)
 model.add(Conv3D(filters=128, kernel_size=(2,2,3), padding="same", activation='relu'))
 model.add(Conv3D(filters=256, kernel_size=(1,1,11), padding="valid", activation='relu'))
 model.add(Reshape((3,3,256)))
