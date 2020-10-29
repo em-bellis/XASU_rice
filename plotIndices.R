@@ -57,7 +57,10 @@ df.long <- subset(df.long, name!="Thermal")
 
 ggplot(df.long, aes(x=Day, y=value, col=name, lty=name)) + 
   geom_line() + geom_point() + theme_classic() + labs(lty="Veg. Index", col="Veg. Index") + 
-  annotate("rect", xmin = as.Date("2019-07-11"), xmax = as.Date("2019-08-13"), ymin =0, ymax = 10, alpha = .2)
+  annotate("rect", xmin = as.Date("2019-07-11"), xmax = as.Date("2019-08-13"), ymin =0, ymax = 10, alpha = .2) +
+  annotate("text", x=as.Date("2019-07-11"), y=10, label="R0") +
+  annotate("text", x=as.Date("2019-08-01"), y=9.2, label="R2") +
+  annotate("text", x=as.Date("2019-08-13"), y=7.7, label="R4")
 
 
 
