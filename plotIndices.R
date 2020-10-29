@@ -3,6 +3,7 @@ library(rgdal)
 library(sf)
 library(stringr)
 library(ggplot2)
+library(tidyr)
 
 # use yield layer for projection
 yld <- raster('/Volumes/ExtremeSSD/Data/Yield.tif')
@@ -44,11 +45,19 @@ for (i in 7:length(vis.list)) {
 }
 
 
-write.table(vis.df, file="avg_VI_2.txt", quote=F, sep="\t", row.names=F)
+#write.table(vis.df, file="avg_VI_2.txt", quote=F, sep="\t", row.names=F)
+vis.df <- read.table("avg_VI.txt", header=T)
 
 # plot
 library(lubridate)
 
-vis.df$Thermal[3] <- vis.df$Thermal[3] + 300
-
 vis.df$Day <- mdy(vis.df$Day)
+df.long <- pivot_longer(vis.df, cols=CIgreen:Thermal)
+df.long <- subset(df.long, name!="Thermal")
+
+ggplot(df.long, aes(x=Day, y=value, col=name, lty=name)) + 
+  geom_line() + geom_point() + theme_classic() + labs(lty="Veg. Index", col="Veg. Index") + 
+  annotate("rect", xmin = as.Date("2019-07-11"), xmax = as.Date("2019-08-13"), ymin =0, ymax = 10, alpha = .2)
+
+
+
