@@ -1,15 +1,16 @@
-process_VIs <- function() {
-  # This function processes an input raster to have the same extent, crs, and resolution as an example raster
-  # Vegetation indices are also processed to set appropriate values to NA
-  # ex: 
-  return()
-}
+source("get_max_val.R")
+library(raster)
 
-# for (i in 7:length(vis.list)) {
-#   if (i == 1) { # set max interval based on Vegetation Index to discard values outside of range
-#     maxVal <- 18
-#   } else if (i == 6) {
-#     maxVal <- 8} 
-#   else {
-#     maxVal <- 1
-#   }
+minVal <- 0
+
+process_VIs <- function(vi, in_rast, ex_rast, maxVal) {
+  # This function processes an input raster to have the same extent, crs, and resolution as an example input raster
+  # Vegetation indices are also processed to set appropriate values to NA
+  # ex: process_VIs("CIgreen", CIgreen.tif, yld.m)
+  
+  in_rast <- raster::calc(in_rast, fun=function(x){ x[x > maxVal | x < minVal] <- NA; return(x)} )
+  in_rast <- projectRaster(in_rast, ex_rast) # some of the layers are not in UTM coordinates
+  in_rast <- mask(in_rast, ex_rast)
+  
+  return(in_rast)
+}

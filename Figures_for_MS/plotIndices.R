@@ -7,9 +7,11 @@ library(tidyr)
 library(lubridate)
 
 # # use yield layer for projection
-# yld <- raster('/Volumes/ExtremeSSD/Data/Yield.tif')
-# crop_extent <- readOGR(paste("/Volumes/ExtremeSSD/Data/Humnoke/Carr_North/04-11-2019/Carr_N_Without_Ditch.shp", sep="/"))
-# yld.m <- mask(yld, crop_extent)
+yld <- raster('/Volumes/ExtremeSSD/Data/Yield.tif')
+crop_extent <- readOGR(paste("/Volumes/ExtremeSSD/Data/Humnoke/Carr_North/04-11-2019/Carr_N_Without_Ditch.shp", sep="/"))
+yld.m <- mask(yld, crop_extent)
+
+processed_rast <- process_VIs("CIgreen", curr, yld.m, get_max_val("CIgreen"))
 # 
 # flydays <- c("04-11-2019","05-21-2019","06-13-2019","06-29-2019","07-11-2019","08-01-2019", "08-13-2019", "08-21-2019","08-28-2019","09-07-2019","09-13-2019") 
 # channels <- c("CIgreen.tif","GNDVI.tif","NAVI.tif","NDVI.tif","RENDVI.tif","TGI.tif","Thermal.tif")

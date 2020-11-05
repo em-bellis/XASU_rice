@@ -1,6 +1,3 @@
-##### Update 6.12.20: rework to output 3x3 images for yield instead of a single value
-##### Update 5.27.20: rework to output 3x3 images instead of csv of individual pixels
-
 ##### The purpose of this script is to process remote sensing layers from the Hashem lab to create machine learning ready input files
 ##### It is highly recommended to be consistent with file names for each of the indices as below 
 ##### All layers must eventually have the same resolution, extent, and crs; the number of pixels in each layer must also be the same at the end of this process 
@@ -16,7 +13,7 @@ path_to <- "/Volumes/ExtremeSSD/Data/Humnoke/Carr_North/infiles_for_2DCNN/"
 
 ## get yield data layer, downsample, mask; base all other layers on this layer
 yld <- raster('/Volumes/ExtremeSSD/Data/Yield.tif') # utm, 5 cm resolution
-yld.5 <- aggregate(yld, 100) # 5 x 5 m resolution
+yld.5 <- aggregate(yld, 10) # 0.5 x 0.5 m resolution
 crop_extent <- readOGR(paste("/Volumes/ExtremeSSD/Data/Humnoke/Carr_North/04-11-2019/Carr_N_Without_Ditch.shp", sep="/"))
 yld.5d <- crop(yld.5, crop_extent)
 yld.5dm <- mask(yld.5d, crop_extent) # 5616 cells; 5235 of these are non-NA
