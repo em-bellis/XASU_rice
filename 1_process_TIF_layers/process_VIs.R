@@ -1,8 +1,6 @@
 source("get_max_val.R")
 library(raster)
 
-minVal <- 0
-
 process_VIs <- function(vi, in_rast, ex_rast, maxVal) {
   # This function processes an input raster to have the same extent, crs, and resolution as an example input raster
   # Vegetation indices are also processed to set appropriate values to NA
