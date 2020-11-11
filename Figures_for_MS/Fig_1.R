@@ -35,10 +35,13 @@ vi_low = rep(0,length(flydays))
 vi_high = rep(0,length(flydays))
 
 ## create df
-for (i in 6:length(vis.list)) {
+for (i in 7:length(vis.list)) {
    for (j in 1:length(flydays)) {
      curr <- raster(paste(path_to_raster,flydays[j],channels[i], sep = "/"))
-     processed_rast <- process_VIs(vis.list[i], curr, yld.m, get_max_val(vis.list[i]))
+     if (i<7) # 
+        { processed_rast <- process_VIs(vis.list[i], curr, yld.m, get_max_val(vis.list[i]))}
+     else if (i==7) 
+        { processed_rast <- process_VIs(vis.list[i], curr, yld.m, 60)}
      vis.df$Channel[j] <- vis.list[i]
      vis.df$Mean[j] <- cellStats(processed_rast, stat='mean', na.rm=TRUE)
      
@@ -59,7 +62,7 @@ for (i in 6:length(vis.list)) {
    vis.df <- data.frame(Day=flydays, Stage=c("fallow","VEG","VEG","VEG","REP_R0","REP_R2","REP_R4","GF","GF","GF","GF"),Channel=NA, Mean=NA, Lower=NA, Upper=NA)
 }
  
-write.table(all.df, file="avg_VI_3.txt", quote=F, sep="\t", row.names=F)
+#write.table(all.df, file="avg_VI_3.txt", quote=F, sep="\t", row.names=F)
 all.df <- read.table("~/Documents/GitHub/XASU_rice/Figures_for_MS/avg_VI_3.txt", header=T)
 
 # plot, 1 col = 85 mm
