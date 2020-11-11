@@ -36,7 +36,8 @@ path_to_raster <- "/Volumes/ABISSD/"
 vis.list <- str_replace(channels, '.tif', '')
 
 ############################### Output images and labels by day
-for (j in 1:length(flydays)) { 
+#for (j in 1:length(flydays)) { 
+for (j in 1:1) { 
   daystack <- create_daystack(path_to_raster, flydays[j], channels, yld.5dm)
   
   # mask so all have same number of NA's and number of images is same
@@ -77,6 +78,7 @@ for (j in 1:length(flydays)) {
       
     output_labels(mat, path_to_labs)
   }
+  message(paste0("Done with ", flydays[j]))
 }
 
 
