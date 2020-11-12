@@ -24,10 +24,16 @@ yld.5d <- crop(yld.5, crop_extent)
 yld.5dm <- mask(yld.5d, crop_extent) # 5616 cells; 5235 of these are non-NA
 
 ## divide into training, testing and validation sets
-# Set A
-e.train <- (c(617964.6,618159.6, 3828596, 3828956))
-e.val <- (c(617769.6,617964.6,3828596, 3828776))
-e.test <- (c(617769.6,617964.6,3828776, 3828956))
+## Set A
+# e.train <- (c(617964.6,618159.6, 3828596, 3828956))
+# e.val <- (c(617769.6,617964.6,3828596, 3828776))
+# e.test <- (c(617769.6,617964.6,3828776, 3828956))
+
+## Set B
+e.train <- c(617769.6, 618159.6, 3828596, 3828776) 
+e.val <- c(617769.6,617964.6,3828776, 3828956)
+e.test <- c(617964.6,618159.6,3828776, 3828956)
+
 
 ## process all other layers (downsample, crop, mask); make raster stacks for each day; split into test, train, and validation sets; split each of these into 5x5 pixel subimages and then save each image and channel separately as .csv file 
 flydays <- c("04-11-2019","05-21-2019","06-13-2019","06-29-2019","07-11-2019","08-01-2019", "08-13-2019", "08-21-2019","08-28-2019","09-07-2019","09-13-2019") 
@@ -37,7 +43,7 @@ vis.list <- str_replace(channels, '.tif', '')
 
 ############################### Output images and labels by day
 #for (j in 1:length(flydays)) { 
-for (j in 1:1) { 
+for (j in 11:11) { 
   daystack <- create_daystack(path_to_raster, flydays[j], channels, yld.5dm)
   
   # mask so all have same number of NA's and number of images is same
