@@ -59,7 +59,6 @@ for (j in 1:1) {
     	mat <- as.matrix(sets[[m]][[i]])
     	path_to_imgs <- paste(path_to,"images/",flydays[j],"/",names(sets)[[m]], sep="")
 		  dir.create(path_to_imgs, recursive=T)
-	
 		  output_images(mat, path_to_imgs,names(sets[[m]][[i]]))
 	  }
   }
@@ -75,7 +74,6 @@ for (j in 1:1) {
   for (m in 1:3) { #m iterating over datasets
     mat <- as.matrix(sets[[m]])
     path_to_labs <- paste(path_to,"labels/",flydays[j],"/",names(sets)[[m]], sep="")
-      
     output_labels(mat, path_to_labs)
   }
   message(paste0("Done with ", flydays[j]))
