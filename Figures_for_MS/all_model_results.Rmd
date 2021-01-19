@@ -1,0 +1,19 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(lubridate)
+library(ggplot2)
+library(tidyverse)
+
+rice <- read.csv('rice_remote_sensing - Sheet1.csv', header=T)
+rice$Date <- as.Date(rice$Date, "%m-%d-%Y")
+rice <- subset(rice, Date != "2019-06-13")
+rice.long <- rice %>% pivot_longer(c(Train_MSE, Val_MSE))
+
+ggplot(rice.long, aes(x=Date, y=value, lty=Set, col=name)) + facet_grid(.~Model) + geom_line() + theme_classic() + geom_hline(yintercept = 17.3^2, col="red") + scale_color_manual(values = c("grey90","grey50"), name="Set", labels=c("Training", "Validation")) + scale_linetype(name="Fold") + ylab("Mean Squared Error")
+```
+
+
