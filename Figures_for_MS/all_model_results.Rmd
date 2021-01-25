@@ -12,8 +12,11 @@ rice <- read.csv('rice_remote_sensing - Sheet1.csv', header=T)
 rice$Date <- as.Date(rice$Date, "%m-%d-%Y")
 rice <- subset(rice, Date != "2019-06-13")
 rice.long <- rice %>% pivot_longer(c(Train_MSE, Val_MSE))
+#rice.long <- rice %>% pivot_longer(c(Train_MSE, Val_MSE, Test_MSE))
 
-ggplot(rice.long, aes(x=Date, y=value, lty=Set, col=name)) + facet_grid(.~Model) + geom_line() + theme_classic() + geom_hline(yintercept = 17.3^2, col="red") + scale_color_manual(values = c("grey90","grey50"), name="Set", labels=c("Training", "Validation")) + scale_linetype(name="Fold") + ylab("Mean Squared Error")
+#ggplot(rice.long, aes(x=Date, y=sqrt(value), col=name)) + geom_line(size=0.25) + facet_grid(Set~Model) + theme_classic() + geom_hline(yintercept = sqrt(17.3)^2, col="red", lty=2) + scale_color_manual(values = c("black","grey90", "grey50"), name="Dataset", labels=c("Test", "Train", "Validation")) + scale_linetype(name="Fold") + ylab("RMSE") + theme(axis.text.x = element_text(angle = 90, vjust=0.4))#+ geom_point(size=0.3)
+
+ggplot(rice.long, aes(x=Date, y=sqrt(value), col=name)) + geom_line(size=0.25) + facet_grid(Set~Model) + theme_classic() + geom_hline(yintercept = sqrt(17.3)^2, col="red", lty=2) + scale_color_manual(values = c("grey90", "grey50"), name="Dataset", labels=c("Train", "Validation")) + scale_linetype(name="Fold") + ylab("RMSE") + theme(axis.text.x = element_text(angle = 90, vjust=0.4))#+ geom_point(size=0.3)
 ```
 
 
