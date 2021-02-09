@@ -13,7 +13,10 @@ rice$Date <- as.Date(rice$Date, "%m-%d-%Y")
 rice <- subset(rice, Date != "2019-06-13")
 #rice.long <- rice %>% pivot_longer(c(Train_MSE, Val_MSE))
 rice.long <- rice %>% pivot_longer(c(Train_MSE, Val_MSE, Test_MSE))
+rice$id <- paste0(rice$Model, rice$Date, sep="_")
+rice.long$id <- paste0(rice.long$Model, rice.long$Date, sep="_")
 
+# line plot
 ggplot(rice.long, aes(x=Date, y=sqrt(value), col=name, lty=name)) + 
   geom_line(size=0.25) + facet_grid(Set~Model) + 
   theme_bw() + geom_hline(yintercept = sqrt(17.3)^2, col="red", lty=2) + 
@@ -22,7 +25,14 @@ ggplot(rice.long, aes(x=Date, y=sqrt(value), col=name, lty=name)) +
   ylab("RMSE") + 
   theme(axis.text.x = element_text(angle = 90, vjust=0.4))#+ geom_point(size=0.3)
 
-#ggplot(rice.long, aes(x=Date, y=sqrt(value), col=name)) + geom_line(size=0.4) + facet_grid(Set~Model) + theme_minimal() + geom_hline(yintercept = sqrt(17.3)^2, col="red", lty=2) + scale_color_manual(values = c("grey70", "black"), name="Dataset", labels=c("Train", "Validation")) + scale_linetype(name="Fold") + ylab("RMSE") + theme(axis.text.x = element_text(angle = 90, vjust=0.4))#+ geom_point(size=0.2)
+# all in one panel
+ggplot(rice.long, aes(x=Date, y=value, color = Model, group=id)) + 
+  geom_point(position = position_dodge(width = 5), size = 1, alpha=0.5) +
+  theme_minimal() +
+  geom_line(position = position_dodge(width = 5), size = 0.4) +
+  scale_color_manual(values = wes_palette("Zissou1", 5, type = c("discrete"))) +
+  facet_grid(name~.)
+
 ```
 ```{r}
 rice.test <- rice.long %>% group_by(Model, Date, name) %>% 
