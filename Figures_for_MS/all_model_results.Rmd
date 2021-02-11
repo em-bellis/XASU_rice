@@ -37,4 +37,35 @@ fig2
 dev.off()
 ```
 
+## get summary stats 
+```{r}
+yld_stats <- rice.long %>% 
+  #filter(name == "Train") %>%
+  select(Model, Set, Date, name, value) %>%
+  group_by(Model, Date, name) %>%
+  summarize(mean_yld = mean(value), sd_yld = sd(value))
+
+fig3 <- ggplot(yld_stats, aes(x=Date, y=mean_yld, color=Model)) + 
+  geom_point(alpha = 0.7, size=0.7) + 
+  geom_line() +
+  theme_light() +
+  theme(panel.grid.minor.x = element_blank()) +
+  ylab("Average MSE") +
+  facet_grid(name~.) +
+  scale_color_manual(values = wes_palette("Zissou1", 5, type = c("discrete")))
+
+pdf(file = "Fig2b_allmods.pdf", width = 3.5, height = 3)
+fig3
+dev.off()
+
+
+ggplot(yld_stats, aes(x=Date, y=sd_yld, color=Model)) + 
+  geom_point(alpha = 0.7, size=0.7) + 
+  geom_line() +
+  theme_light() +
+  theme(panel.grid.minor.x = element_blank()) +
+  ylab("Average MSE") +
+  facet_grid(name~.) +
+  scale_color_manual(values = wes_palette("Zissou1", 5, type = c("discrete")))
+```
 
