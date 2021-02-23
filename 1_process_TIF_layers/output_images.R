@@ -16,7 +16,7 @@ output_images <- function(mat, path_to, channel_name) {
 
 output_images_blank <- function(mat, path_to, channel_name) {
   ### this function will output 5 x 5 pixel subimages
-  ### it will output the mean value for the channel (observed in the test set) in each cell
+  ### it will output the mean value for the channel observed across the dataset in each cell
   k <- 1 #k is a unique id for each subimage
   mean.val <- round(mean(mat, na.rm=T),2)
   for (r in seq(1,(dim(mat)[1]-4),5)) {
