@@ -13,3 +13,22 @@ output_images <- function(mat, path_to, channel_name) {
     }
   }
 }
+
+output_images_blank <- function(mat, path_to, channel_name) {
+  ### this function will output 5 x 5 pixel subimages
+  ### it will output the mean value for the channel (observed in the test set) in each cell
+  k <- 1 #k is a unique id for each subimage
+  mean.val <- round(mean(mat, na.rm=T),2)
+  for (r in seq(1,(dim(mat)[1]-4),5)) {
+    for (c in seq(1,(dim(mat)[2]-4),5)) {
+      subimg <- round(mat[r:(r+4),c:(c+4)],digits=2)
+      meanimg <- matrix(data=rep(mean.val,25), ncol=5)
+      file_id <- paste(channel_name,k,".csv", sep="")
+      
+      if (is.na(mean(subimg)) == "FALSE") {
+        write.table(meanimg, file=paste(path_to_imgs,"/",file_id,sep=""), quote=F, sep=",", row.names=F, col.names=F)
+      }
+      k <- k+1
+    }
+  }
+}
