@@ -1,4 +1,10 @@
-#!/usr/bin/env python
+#*********************************************************************************
+# Description:  takes in csv data and converts to numpy array.
+#               should have list of samples (e.g. yld1000.csv) in same directory
+#
+# Usage: python eval_model_blanked.py <set> <index for day> <channel to blank>
+#        python eval_model_blanked.py SetA 5 CIgreen
+#*********************************************************************************
 import os
 import sys, getopt
 import tensorflow as tf
