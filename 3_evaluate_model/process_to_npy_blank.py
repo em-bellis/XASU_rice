@@ -1,9 +1,10 @@
-#******************************************************************************
-# Description: takes in csv data and converts to numpy array
+#*********************************************************************************
+# Description:  takes in csv data and converts to numpy array.
+#               should have list of samples (e.g. yld1000.csv) in same directory
 #
 # Usage: python process_to_npy.py <index for day> <dataset> <channel to blank>
 #        python process_to_npy.py 5 test CIgreen
-#******************************************************************************
+#*********************************************************************************
 import numpy as np
 import os
 import glob
