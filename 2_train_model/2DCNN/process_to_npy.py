@@ -1,3 +1,9 @@
+#************************************************************
+# Description: takes in csv data and converts to numpy array
+#
+# Usage: python process_to_npy.py <index for day> <dataset>
+#        python process_to_npy.py 1 train
+#************************************************************
 import numpy as np
 import os
 import glob
@@ -5,24 +11,6 @@ import sys, getopt
 from pandas import read_csv
 
 days = ["04-11-2019","05-21-2019","06-13-2019","06-29-2019","07-11-2019","08-01-2019","08-13-2019","08-21-2019","08-28-2019","09-07-2019","09-13-2019"]
-#days = ["06-29-2019","07-11-2019","08-01-2019","08-13-2019","08-21-2019"]
-#def main(argv):
-#    daysidx = ''
-#    try:
-#        opts, args = getopt.getopt(argv,"hi:",["ifile="]) # should be integer 0-4
-#    except getopt.GetoptError:
-#        print('test.py -i <daysidx>')
-#        sys.exit(2)
-#    for opt, arg in opts:
-#        if opt == '-h':
-#            print('process_to_npy.py -i <daysidx>')
-#            sys.exit()
-#        elif opt in ("-i", "--ifile"):
-#            daysidx = int(arg)
-#            print('Day index is ', daysidx, '; day is ', days[daysidx])
-
-#if __name__ == "__main__":
-#   main(sys.argv[1:])
 
 daysidx = int(sys.argv[1])
 print('Day index is ', daysidx, '; day is ', days[daysidx])
