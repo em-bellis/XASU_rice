@@ -65,7 +65,8 @@ for (i in 7:length(vis.list)) {
 #write.table(all.df, file="avg_VI_3.txt", quote=F, sep="\t", row.names=F)
 all.df <- read.table("~/Documents/GitHub/XASU_rice/Figures_for_MS/avg_VI_3.txt", header=T)
 
-# plot, 1 col = 85 mm
+# plot, 1 col = 85 mm, 2 col = 180
+all.df <- read.table('avg_VI_3.txt', header=T)
 all.df$Day <- mdy(all.df$Day)
 df.long <- pivot_longer(all.df, cols=Mean:Upper)
 
@@ -73,8 +74,9 @@ p.all <- ggplot(df.long, aes(x=Day, y=value, lty=name, group=name)) +
   geom_line() + theme_classic() + facet_grid(Channel~., scales="free") + 
   labs(lty="Yield Group", col="Yield Group") +
   scale_linetype_manual(values=c(2,1,3), labels=c("Lower 10%","All","Upper 10%")) +
-  theme(axis.text.x = element_text(angle = 90, vjust=0.5))
+  theme(axis.text.x = element_text(angle = 90, vjust=0.5)) +
+   
 
-pdf("Figure1_VIs.pdf", width=3.35, height=6)
+pdf("Figure1_VIs.pdf", width=7.08, height=6)
 p.all
 dev.off()
