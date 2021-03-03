@@ -1,4 +1,4 @@
-source("get_max_val.R")
+#source("get_max_val.R")
 library(raster)
 
 process_VIs <- function(vi, in_rast, ex_rast, maxVal, minVal) {
