@@ -61,18 +61,17 @@ pred_yld
 ```{r}
 library(reticulate)
 
-use_python('/Users/ebellis/Library/r-miniconda/envs/r-reticulate_rice/bin/python', required = T)
+#use_python('/Users/ebellis/Library/r-miniconda/envs/r-reticulate_rice/bin/python', required = T)
 use_condaenv("r-reticulate_rice", required = T)
-reticulate::py_config() # had to change .Renviron file to get python version from conda env and load packages
-
-repl_python()
+reticulate::py_config() # had to change .Renviron file on my system to get python version from conda env and load packages
+#repl_python()
 
 ```
 
 ```{python}
 import numpy, sys
-import tensorflow as tf
-tf.version
+import tensorflow.keras as keras
+model = keras.models.load_model('Aug01_SetB_model/')
 ```
 
 ```{r}
