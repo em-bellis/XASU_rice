@@ -1,5 +1,5 @@
-source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/get_max_val.R')
-source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/process_VIs.R')
+#source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/get_max_val.R')
+#source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/process_VIs.R')
 
 create_daystack <- function(path_to_raster, flyday, channel_list, ex_rast) {
   ### this function will process rasters and create a stack of channels for one day
