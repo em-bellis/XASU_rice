@@ -17,14 +17,14 @@ library(sf)
 library(stringr)
 library(ggplot2)
 
-#setwd('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/')
-source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/get_max_val.R')
-source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/process_VIs.R')
-source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/output_labels.R')
-source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/create_daystack.R')
-source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/output_images.R')
+setwd("/home/ebellis/rice/project")
+source('get_max_val.R')
+source('process_VIs.R')
+source('output_labels.R')
+source('create_daystack.R')
+source('output_images.R')
 
-path_to <- "/Volumes/ABISSD/"
+path_to <- "/storage/ebellis/tifs/"
 
 ## get yield data layer, downsample, mask; base all other layers on this layer
 yld <- raster(paste0(path_to,'Yield.tif')) # utm, 5 cm resolution
