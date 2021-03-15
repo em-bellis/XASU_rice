@@ -6,6 +6,7 @@ library(rgdal)
 library(sf)
 library(stringr)
 library(ggplot2)
+library(RColorBrewer)
 
 setwd('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/')
 source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/get_max_val.R')
@@ -46,4 +47,20 @@ daystack <- mask(daystack, daystack[[mostnas_idx]])
 
 # predict 
 r1_linear <- raster::predict(daystack, mod, progress = 'text')
-plot(r1_linear - yld.5dm)
+
+# plot
+cuts=c(10, 150,160,170,180,190,200,230) 
+cuts2=c(10, 154,166,178,187,194,230) #  quantile(yld.5dm, c(0.1, 0.25, 0.5, 0.75, 0.9))
+cuts3 <- c(-100, -75, -50, -25, 0, 25, 50, 75, 100)
+
+plot(yld.5dm, breaks = cuts2, col=brewer.pal(8, "RdYlBu"), main = "Observed Yield")
+plot(pred, breaks = cuts2, col=brewer.pal(8, "RdYlBu"), main = "Predicted (2D-CNN)")
+plot(r1_linear, breaks = cuts2, col=brewer.pal(8, "RdYlBu"), main = "Predicted (linear)")
+
+cnn_diff <- yld.5dm - pred
+lin_diff <- yld.5dm - r1_linear
+
+plot(cnn_diff, breaks = cuts3, col=brewer.pal(8, "RdYlBu"), main = "2D-CNN")
+plot(lin_diff, breaks = cuts3, col=brewer.pal(8, "RdYlBu"), main = "linear")
+
+
