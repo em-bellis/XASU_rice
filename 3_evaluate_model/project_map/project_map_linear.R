@@ -55,8 +55,8 @@ cuts2=c(10, 154,166,178,187,194,250) #  quantile(yld.5dm, c(0.1, 0.25, 0.5, 0.75
 cuts3 <- c(-100, -75, -50, -25, 0, 25, 50, 75, 100)
 
 plot(yld.5dm, breaks = cuts2, col=brewer.pal(6, "RdYlBu"), main = "Observed Yield")
-plot(pred, breaks = cuts2, col=brewer.pal(6, "RdYlBu"), main = "Predicted (2D-CNN)")
-plot(r1_linear, breaks = cuts2, col=brewer.pal(6, "RdYlBu"), main = "Predicted (linear)")
+plot(pred, breaks = cuts2, col=brewer.pal(6, "YlGnBu"), main = "Predicted (2D-CNN)")
+plot(r1_linear, breaks = cuts2, col=brewer.pal(6, "YlGnBu"), main = "Predicted (linear)")
 
 cnn_diff <- yld.5dm - pred
 lin_diff <- yld.5dm - r1_linear

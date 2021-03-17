@@ -60,7 +60,7 @@ projectModel <- function(r, c) {
   if (is.na(mean(tmp)) == "FALSE") {
     patch <- matrix(predict(augmod, np$expand_dims(tmp, 0L)) %>% np$squeeze(), nrow = 5, byrow=T) # patch of raster with predictions
   } else {
-    patch <- tmp[1:5,1:5,1]
+    patch <- matrix(data = NA, nrow = 5, ncol = 5)
   }
   return(patch)
 }
