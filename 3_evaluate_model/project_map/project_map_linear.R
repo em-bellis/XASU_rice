@@ -47,20 +47,27 @@ daystack <- mask(daystack, daystack[[mostnas_idx]])
 
 # predict 
 r1_linear <- raster::predict(daystack, mod, progress = 'text')
+pred <- raster('~/projectCNN_Aug01.tif')
 
 # plot
-cuts=c(10, 150,160,170,180,190,200,230) 
-cuts2=c(10, 154,166,178,187,194,230) #  quantile(yld.5dm, c(0.1, 0.25, 0.5, 0.75, 0.9))
+cuts=c(10, 150,160,170,180,190,200,250) 
+cuts2=c(10, 154,166,178,187,194,250) #  quantile(yld.5dm, c(0.1, 0.25, 0.5, 0.75, 0.9))
 cuts3 <- c(-100, -75, -50, -25, 0, 25, 50, 75, 100)
 
-plot(yld.5dm, breaks = cuts2, col=brewer.pal(8, "RdYlBu"), main = "Observed Yield")
-plot(pred, breaks = cuts2, col=brewer.pal(8, "RdYlBu"), main = "Predicted (2D-CNN)")
-plot(r1_linear, breaks = cuts2, col=brewer.pal(8, "RdYlBu"), main = "Predicted (linear)")
+plot(yld.5dm, breaks = cuts2, col=brewer.pal(6, "RdYlBu"), main = "Observed Yield")
+plot(pred, breaks = cuts2, col=brewer.pal(6, "RdYlBu"), main = "Predicted (2D-CNN)")
+plot(r1_linear, breaks = cuts2, col=brewer.pal(6, "RdYlBu"), main = "Predicted (linear)")
 
 cnn_diff <- yld.5dm - pred
 lin_diff <- yld.5dm - r1_linear
+cnn_lin <- pred - r1_linear
 
-plot(cnn_diff, breaks = cuts3, col=brewer.pal(8, "RdYlBu"), main = "2D-CNN")
-plot(lin_diff, breaks = cuts3, col=brewer.pal(8, "RdYlBu"), main = "linear")
+plot(cnn_diff, breaks = cuts4, col=brewer.pal(10, "RdYlBu"), main = "2D-CNN")
+plot(lin_diff, breaks = cuts4, col=brewer.pal(10, "RdYlBu"), main = "linear")
+plot(cnn_lin, breaks = cuts3, col=brewer.pal(8, "RdYlBu"), main = "linear")
 
+
+buac_to_tha <- function(bushels) {
+  return(bushels * 46 /  2204.62 * 2.47105)
+}
 
