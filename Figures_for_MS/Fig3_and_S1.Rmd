@@ -2,12 +2,17 @@
 title: "R Notebook"
 output: html_notebook
 ---
-This script produces Figure 2, a summary of the model performance across all folds
+This script produces Figures 3 and S1, a summary of the model performance across all folds
 ```{r}
 library(lubridate)
 library(ggplot2)
 library(tidyverse)
 library(wesanderson)
+
+# function to convert to tons/hectare
+buac_to_tha <- function(bushels) {
+  return(bushels * 46 /  2204.62 * 2.47105) # 46 bushels/lb for rough rice; 2204 lbs per metric ton; 2.47 acres per hectare
+}
 
 rice <- read.csv('rice_remote_sensing - Sheet1.csv', header=T)
 rice$Date <- as.Date(rice$Date, "%m-%d-%Y")
@@ -21,7 +26,7 @@ rice.long$name <- factor(rice.long$name,      # Reordering group factor levels
                          labels = c("Test","Validation","Train"))
 
 # all in one panel
-fig2 <- ggplot(rice.long, aes(x=Date, y=value, color = Model, group=id, pch = Set)) + 
+fig2 <- ggplot(rice.long, aes(x=Date, y=(buac_to_tha(sqrt(value))/9.06*100), color = Model, group=id, pch = Set)) + 
   geom_point(position = position_dodge(width = 5), size = 1.1, alpha = 0.5) +
   theme_light() +
   theme(panel.grid.minor.x = element_blank()) +
@@ -29,10 +34,10 @@ fig2 <- ggplot(rice.long, aes(x=Date, y=value, color = Model, group=id, pch = Se
   scale_color_manual(values = wes_palette("Zissou1", 5, type = c("discrete"))) +
   facet_grid(name~.) +
   labs(shape = "Fold") +
-  ylab("MSE")
+  ylab("RMSE (%)")
 
 # save figure to file
-pdf(file = "Fig2_allmods.pdf", width = 7.07, height = 4)
+pdf(file = "FigS1_allmods.pdf", width = 7.07, height = 4)
 fig2
 dev.off()
 ```
@@ -45,16 +50,16 @@ yld_stats <- rice.long %>%
   group_by(Model, Date, name) %>%
   summarize(mean_yld = mean(value), sd_yld = sd(value))
 
-fig3 <- ggplot(yld_stats, aes(x=Date, y=mean_yld, color=Model)) + 
-  geom_point(alpha = 0.7, size=0.7) + 
+fig3 <- ggplot(yld_stats, aes(x=Date, y=(buac_to_tha(sqrt(mean_yld))/9.06*100), color=Model, lty = Model)) + 
+  #geom_point(alpha = 0.7, size=0.7) + 
   geom_line() +
   theme_light() +
   theme(panel.grid.minor.x = element_blank()) +
-  ylab("Average MSE") +
+  ylab("RMSE (%)") +
   facet_grid(name~.) +
   scale_color_manual(values = wes_palette("Zissou1", 5, type = c("discrete")))
 
-pdf(file = "Fig2b_allmods.pdf", width = 3.5, height = 3)
+pdf(file = "Fig3_allmods.pdf", width = 3.5, height = 3)
 fig3
 dev.off()
 
