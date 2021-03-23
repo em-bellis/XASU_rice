@@ -34,11 +34,9 @@ e.test <- c(617964.6,618159.6,3828776, 3828956)
 flydays <- c("04-11-2019","05-21-2019","06-13-2019","06-29-2019","07-11-2019","08-01-2019", "08-13-2019", "08-21-2019","08-28-2019","09-07-2019","09-13-2019") 
 channels <- c("CIgreen.tif","GNDVI.tif","NAVI.tif","NDVI.tif","RENDVI.tif","TGI.tif","Thermal.tif")
 path_to_raster <- "/Volumes/ABISSD/"
-vis.list <- str_replace(channels, '.tif', '')
 
 ############################### output project for 1 day based on linear model
-j = 6
-daystack <- create_daystack(path_to_raster, flydays[j], channels, yld.5dm) # raster stack for a single day
+daystack <- create_daystack(path_to_raster, "08-01-2019", channels, yld.5dm) # raster stack for a single day
   
 # mask so all have same number of NA's and number of images is same
 mostnas_idx <- which.max(as.matrix(cellStats(daystack, stat='countNA')))
@@ -47,7 +45,7 @@ daystack <- mask(daystack, daystack[[mostnas_idx]])
 
 # predict 
 r1_linear <- raster::predict(daystack, mod, progress = 'text')
-pred <- raster('~/projectCNN_Aug01.tif')
+pred <- raster('~/projectCNN_Aug01_v2.tif')
 
 # plot
 cuts=c(10, 150,160,170,180,190,200,250) 
@@ -62,8 +60,8 @@ cnn_diff <- yld.5dm - pred
 lin_diff <- yld.5dm - r1_linear
 cnn_lin <- pred - r1_linear
 
-plot(cnn_diff, breaks = cuts4, col=brewer.pal(10, "RdYlBu"), main = "2D-CNN")
-plot(lin_diff, breaks = cuts4, col=brewer.pal(10, "RdYlBu"), main = "linear")
+plot(cnn_diff, breaks = cuts3, col=brewer.pal(8, "RdYlBu"), main = "2D-CNN")
+plot(lin_diff, breaks = cuts3, col=brewer.pal(8, "RdYlBu"), main = "linear")
 plot(cnn_lin, breaks = cuts3, col=brewer.pal(8, "RdYlBu"), main = "linear")
 
 
