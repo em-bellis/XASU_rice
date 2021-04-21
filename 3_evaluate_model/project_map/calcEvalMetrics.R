@@ -53,26 +53,30 @@ crop_extent <- readOGR(paste0(path_to,"04-11-2019/Carr_N_Without_Ditch.shp"))
 yld.5d <- crop(yld.5, crop_extent)
 yld.5dm <- mask(yld.5d, crop_extent) # 5616 cells; 5235 of these are non-NA
 
+Set <- 'A'
+
 ## divide into training, testing and validation sets=
 ## Set A
-# e.train <- (c(617964.6,618159.6, 3828596, 3828956))
-# e.val <- (c(617769.6,617964.6,3828596, 3828776))
-# e.test <- (c(617769.6,617964.6,3828776, 3828956))
-
+if (Set == 'A') {
+  e.train <- (c(617964.6,618159.6, 3828596, 3828956))
+  e.val <- (c(617769.6,617964.6,3828596, 3828776))
+  e.test <- (c(617769.6,617964.6,3828776, 3828956))
+} else if (Set == "B") {
 ## Set B
-# e.train <- c(617769.6, 618159.6, 3828596, 3828776)
-# e.val <- c(617769.6,617964.6,3828776, 3828956)
-# e.test <- c(617964.6,618159.6,3828776, 3828956)
-
-# # ## Set C
-# e.train <- c(617769.6, 617964.6, 3828596, 3828956)
-# e.val <- c(617964.6,618159.6,3828596, 3828776)
-# e.test <- c(617964.6,618159.6,3828776, 3828956)
-
-# ## Set D
-e.val <- c(617964.6,618159.6,3828596, 3828776)
-e.test <- (c(617769.6,617964.6,3828596, 3828776))
-e.train <- c(617769.6, 618159.6, 3828776,3828956)
+  e.train <- c(617769.6, 618159.6, 3828596, 3828776)
+  e.val <- c(617769.6,617964.6,3828776, 3828956)
+  e.test <- c(617964.6,618159.6,3828776, 3828956)
+} else if (Set == "C") {
+## Set C
+ e.train <- c(617769.6, 617964.6, 3828596, 3828956)
+ e.val <- c(617964.6,618159.6,3828596, 3828776)
+ e.test <- c(617964.6,618159.6,3828776, 3828956)
+} else if (Set == "D") {
+## Set D
+ e.val <- c(617964.6,618159.6,3828596, 3828776)
+ e.test <- (c(617769.6,617964.6,3828596, 3828776))
+ e.train <- c(617769.6, 618159.6, 3828776,3828956)
+}
 
 ## process all other layers (downsample, crop, mask); make raster stacks for each day; split into test, train, and validation sets; split each of these into 5x5 pixel subimages and then save each image and channel separately as .csv file 
 flydays <- c("04-11-2019","05-21-2019","06-13-2019","06-29-2019","07-11-2019","08-01-2019", "08-13-2019", "08-21-2019","08-28-2019","09-07-2019","09-13-2019") 
@@ -88,10 +92,11 @@ yld.dayna <- mask(yld.5dm, daystack[[mostnas_idx]])
 daystack <- mask(daystack, daystack[[mostnas_idx]])
 daystack_yld <- stack(daystack, yld.dayna)
 
-preds_cnn <- raster('~/projectCNN_Aug01_SetD.tif')
+preds_cnn <- raster(paste0('~/projectCNN_Aug01_Set',Set,'.tif'))
 preds_cnn <- extend(preds_cnn, 20)
 preds_cnn <- crop(preds_cnn, extent(daystack_yld))
 preds_cnn <- mask(preds_cnn, daystack[[mostnas_idx]])
+names(preds_cnn) <- 'preds_2d'
 daystack_yld <- stack(daystack_yld, preds_cnn)
 
 # split into test, validation, training sets
@@ -111,7 +116,7 @@ test.df$preds_lin <- buac_to_Mgha(predict(mod.lin, test.df))
 mod.null = mean(train.df$Yield)
 test.df$preds_null <- buac_to_Mgha(mod.null)
 
-test.df$preds_2d <- buac_to_Mgha(test.df$projectCNN_Aug01_SetD)
+test.df$preds_2d <- buac_to_Mgha(test.df$preds_2d)
 
 ## xgboost model (did not save, so retrain)
 dtrain <- xgb.DMatrix(data = as.matrix(train.df[,c(1:7)]), label = as.matrix(train.df[,8]))
