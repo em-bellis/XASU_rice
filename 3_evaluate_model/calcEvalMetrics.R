@@ -150,3 +150,34 @@ mae(test.df$Yield_Mgha, test.df$preds_xgb)
 mae(test.df$Yield_Mgha, test.df$preds_lin)
 mae(test.df$Yield_Mgha, test.df$preds_null)
 
+
+
+####### 3dcnn is calculated based on predictions output from model.predict run on cluster
+setA <- read.csv('preds_3dcnn_SetA.csv')
+setB <- read.csv('preds_3dcnn_SetB.csv')
+setC <- read.csv('preds_3dcnn_SetC.csv')
+setD <- read.csv('preds_3dcnn_SetD.csv')
+
+#mae
+mae(buac_to_Mgha(setA$observed), buac_to_Mgha(setA$predicted))
+mae(buac_to_Mgha(setB$observed), buac_to_Mgha(setB$predicted))
+mae(buac_to_Mgha(setC$observed), buac_to_Mgha(setC$predicted))
+mae(buac_to_Mgha(setD$observed), buac_to_Mgha(setD$predicted))
+
+#mbe
+mbe(buac_to_Mgha(setA$observed), buac_to_Mgha(setA$predicted))
+mbe(buac_to_Mgha(setB$observed), buac_to_Mgha(setB$predicted))
+mbe(buac_to_Mgha(setC$observed), buac_to_Mgha(setC$predicted))
+mbe(buac_to_Mgha(setD$observed), buac_to_Mgha(setD$predicted))
+
+#r2
+r2(buac_to_Mgha(setA$observed), buac_to_Mgha(setA$predicted))
+r2(buac_to_Mgha(setB$observed), buac_to_Mgha(setB$predicted))
+r2(buac_to_Mgha(setC$observed), buac_to_Mgha(setC$predicted))
+r2(buac_to_Mgha(setD$observed), buac_to_Mgha(setD$predicted))
+
+#rmse
+rmse(buac_to_Mgha(setA$observed), buac_to_Mgha(setA$predicted))
+rmse(buac_to_Mgha(setB$observed), buac_to_Mgha(setB$predicted))
+rmse(buac_to_Mgha(setC$observed), buac_to_Mgha(setC$predicted))
+rmse(buac_to_Mgha(setD$observed), buac_to_Mgha(setD$predicted))
