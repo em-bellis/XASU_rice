@@ -1,4 +1,4 @@
-##### The purpose of this script is to process remote sensing layers from the Hashem lab to create machine learning ready input files
+##### This script recreates images for Fig. 4
 
 ##### contact Emily Bellis (ebellis@astate.edu) with questions
 library(raster)
