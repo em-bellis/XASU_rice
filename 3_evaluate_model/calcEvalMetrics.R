@@ -16,7 +16,8 @@ source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/output_labels.R')
 source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/create_daystack.R')
 source('~/Documents/GitHub/XASU_rice/1_process_TIF_layers/output_images.R')
 
-path_to <- "/Volumes/ABISSD/"
+#path_to <- "/Volumes/ABISSD/"
+path_to <- "/Volumes/LaCie/Dr.\ Reba/Humnok/Way_3/2020/07-05-2020/Index\ clips/"
 
 # function to convert yield units
 buac_to_Mgha <- function(bushels) {
@@ -31,7 +32,7 @@ rmse <- function(observed, predicted) {
 
 # function to calculate R^2
 r2 <- function(observed, predicted) {
-  mod <- lm(predicted ~ observed)
+  mod <- lm(observed ~ predicted)
   return(summary(mod)[8])
 }
 
@@ -47,7 +48,8 @@ mae <- function(observed, predicted) {
 }
 
 ## get yield data layer, downsample, mask; base all other layers on this layer
-yld <- raster(paste0(path_to,'Yield.tif')) # utm, 5 cm resolution
+#yld <- raster(paste0(path_to,'Yield.tif')) # utm, 5 cm resolution
+yld <- raster('~/Desktop/2020_Way_Yield_Maps/Way_3_N_2020_Yield/Way_2020_Yield1.tif')
 yld.5 <- aggregate(yld, 10) # 0.5 x 0.5 m resolution
 crop_extent <- readOGR(paste0(path_to,"04-11-2019/Carr_N_Without_Ditch.shp"))
 yld.5d <- crop(yld.5, crop_extent)
@@ -181,3 +183,8 @@ rmse(buac_to_Mgha(setA$observed), buac_to_Mgha(setA$predicted))
 rmse(buac_to_Mgha(setB$observed), buac_to_Mgha(setB$predicted))
 rmse(buac_to_Mgha(setC$observed), buac_to_Mgha(setC$predicted))
 rmse(buac_to_Mgha(setD$observed), buac_to_Mgha(setD$predicted))
+
+####### stats
+results <- read.csv('../Figures_for_MS/results_summary.csv', header = T)
+library(lme4)
+glm
